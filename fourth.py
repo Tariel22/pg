@@ -34,3 +34,57 @@ if __name__ == "__main__":
     print(je_tah_mozny(dama, (8, 1), obsazene_pozice))  # False, dámě v cestě stojí jiná figura
     print(je_tah_mozny(dama, (1, 3), obsazene_pozice))  # False, dámě v cestě stojí jiná figura
     print(je_tah_mozny(dama, (3, 8), obsazene_pozice))  # True
+def je_tah_mozny(figura, start_pozice, cilova_pozice, obsazena_pole):
+    x_start, y_start = start_pozice
+    x_cilova, y_cilova = cilova_pozice
+
+    # 1. Проверка, что целевая позиция не вне доски
+    if not (1 <= x_cilova <= 8 and 1 <= y_cilova <= 8):
+        return False
+
+    # 2. Проверка, что целевая позиция свободна
+    if cilova_pozice in obsazena_pole:
+        return False
+
+    # 3. Проверка движений в зависимости от фигуры
+    if figura == 'pěšec':
+        if x_start == x_cilova and (y_cilova == y_start + 1 or (y_start == 2 and y_cilova == y_start + 2)):
+            return True
+    elif figura == 'jezdec':
+        if (abs(x_cilova - x_start) == 2 and abs(y_cilova - y_start) == 1) or (abs(x_cilova - x_start) == 1 and abs(y_cilova - y_start) == 2):
+            return True
+    elif figura == 'věž':
+        if x_start == x_cilova or y_start == y_cilova:
+            if not je_pole_obsazeno(start_pozice, cilova_pozice, obsazena_pole):
+                return True
+    elif figura == 'střelec':
+        if abs(x_cilova - x_start) == abs(y_cilova - y_start):
+            if not je_pole_obsazeno(start_pozice, cilova_pozice, obsazena_pole):
+                return True
+    elif figura == 'dáma':
+        if (x_start == x_cilova or y_start == y_cilova or abs(x_cilova - x_start) == abs(y_cilova - y_start)):
+            if not je_pole_obsazeno(start_pozice, cilova_pozice, obsazena_pole):
+                return True
+    elif figura == 'král':
+        if abs(x_cilova - x_start) <= 1 and abs(y_cilova - y_start) <= 1:
+            return True
+
+    return False
+
+def je_pole_obsazeno(start_pozice, cilova_pozice, obsazena_pole):
+    x_start, y_start = start_pozice
+    x_cilova, y_cilova = cilova_pozice
+
+    # Вектор движения
+    krok_x = 1 if x_cilova > x_start else -1 if x_cilova < x_start else 0
+    krok_y = 1 if y_cilova > y_start else -1 if y_cilova < y_start else 0
+
+    # Проходим по полям между начальной и целевой позициями
+    x, y = x_start + krok_x, y_start + krok_y
+    while (x, y) != (x_cilova, y_cilova):
+        if (x, y) in obsazena_pole:
+            return True
+        x += krok_x
+        y += krok_y
+
+    return False
