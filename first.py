@@ -1,9 +1,9 @@
 def sudy_nebo_lichy(cislo):
     if cislo % 2 == 0:
-        print(f"Число {cislo} - чётное")
+        print(f"Číslo {cislo} je sudé")
     else:
-        print(f"Число {cislo} - нечётное")
+        print(f"Číslo {cislo} je liché")
 
-# Вызов функции
+# Volání funkce
 sudy_nebo_lichy(5)
 sudy_nebo_lichy(1000000)
