@@ -5,3 +5,9 @@ def je_prvocislo(cislo):
         if cislo % i == 0:
             return False
     return True
+def vrat_prvocisla(maximum):
+    seznam_prvocisel = []
+    for i in range(2, maximum + 1):
+        if je_prvocislo(i):
+            seznam_prvocisel.append(i)
+    return seznam_prvocisel
