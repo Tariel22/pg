@@ -49,4 +49,3 @@ print(cislo_text(1))      # "jedna"
 print(cislo_text(15))     # "patnáct"
 print(cislo_text(25))     # "dvacet pět"
 print(cislo_text(100))    # "sto"
-python second.py
