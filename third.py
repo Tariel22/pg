@@ -11,3 +11,7 @@ def vrat_prvocisla(maximum):
         if je_prvocislo(i):
             seznam_prvocisel.append(i)
     return seznam_prvocisel
+print(je_prvocislo(1))    # False
+print(je_prvocislo(2))    # True
+print(je_prvocislo(3))    # True
+print(je_prvocisla(100))   # [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
