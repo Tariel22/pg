@@ -22,8 +22,8 @@ class Piece(ABC):
         return self.__position
 
     @position.setter
-    def position(self, new_postion):
-        self.__position = new_postion
+    def position(self, new_position):
+        self.__position = new_position
 
     def __str__(self):
         return f'Piece({self.color}) at position {self.position}'
@@ -111,7 +111,24 @@ class King(Piece):
     def __str__(self):
         return f'King({self.color}) at position {self.position}'
 
+class Knight(Piece):
+    def possible_moves(self):
+        row, col = self.position
+        moves = []
+        directions = [
+            (-2, -1), (-2, 1), (-1, -2), (-1, 2),
+            (1, -2), (1, 2), (2, -1), (2, 1)
+        ]
+        for dr, dc in directions:
+            r, c = row + dr, col + dc
+            if self.is_position_on_board((r, c)):
+                moves.append((r, c))
+        return moves
+
+    def __str__(self):
+        return f'Knight({self.color}) at position {self.position}'
+
 if __name__ == "__main__":
-    piece = Pawn("white", (2, 1))
-    print(piece)
-    print(piece.possible_moves())
+    knight = Knight("black", (4, 4))
+    print(knight)
+    print(knight.possible_moves())
